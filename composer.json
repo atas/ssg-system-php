@@ -1,7 +1,7 @@
 {
   "name": "atas/ssg-system-php",
   "description": "Ata's SSG System PHP files",
-  "type": "project",
+  "type": "library",
   "license": "MIT",
   "autoload": {
     "psr-4": {

@@ -19,8 +19,7 @@ class Layout {
      */
     function selectedTabCss(string $tab): string
     {
-        global $page_meta;
-        if ($page_meta->selectedTab == $tab) {
+        if ($this->atasSsg->pageMeta->selectedTab == $tab) {
             return "selected";
         }
         return "";
@@ -32,7 +31,7 @@ class Layout {
      */
     function get_email_parts_in_js(): string
     {
-        global $config;
+        $config = $this->atasSsg->config;
         $email_parts = explode('@', $config->email);
         if (count($email_parts) === 2) {
             return "const email_local = '$email_parts[0]'; const email_domain = '$email_parts[1]';";
@@ -47,9 +46,10 @@ class Layout {
      */
     function GetProcessedPageMeta(): ProcessedPageMeta
     {
-        global $page_meta, $config;
+        $config = $this->atasSsg->config;
 
         $processed = new ProcessedPageMeta();
+        $page_meta = $this->atasSsg->pageMeta;
 
         // We either use default full title from config.json or append the config.appended_title into the given title.
         $processed->title = !isset($page_meta->title) || strlen($page_meta->title) == 0 ? $config->full_title : "$page_meta->title$config->appended_title";

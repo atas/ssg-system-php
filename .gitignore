@@ -3,3 +3,4 @@ vendor
 .vscode
 tmp/*.md
 .DS_Store
+.phpunit*

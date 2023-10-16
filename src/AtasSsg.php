@@ -5,16 +5,11 @@ namespace Atas\SsgSystemPhp;
 use JetBrains\PhpStorm\NoReturn;
 use League\CommonMark\Exception\CommonMarkException;
 
-require_once(__DIR__ . "/../vendor/autoload.php");
-require_once('Types.php');
-require_once('PostsCache.php');
-require_once 'Markdown.php';
-
 class AtasSsg
 {
     protected string $projRoot;
-    protected PageMeta $pageMeta;
-    public ?SiteConfig $config;
+    public PageMeta $pageMeta;
+    public \stdClass $config;
 
     public Markdown $markdown;
 
@@ -26,14 +21,7 @@ class AtasSsg
     {
         if (file_exists($projRoot . "/config.json")) {
             $this->config = json_decode(file_get_contents($projRoot . "/config.json"));
-
-            if ($this->config == null) {
-                die("Config file is invalid");
-            }
-        }
-        else {
-            die("Config file not found");
-        }
+        } else die("Config file not found");
 
         $this->projRoot = $projRoot;
 
@@ -43,7 +31,8 @@ class AtasSsg
 
         $this->markdown = new Markdown($this->getCurrentHostname());
 
-        $this->postCache = new PostsCache($this->projRoot . "/posts.json", $this->projRoot . "/posts/", $this);
+        $this->postCache = new PostsCache($this->projRoot . "/tmp/posts.json", $this->projRoot . "/posts/",
+            $this->markdown);
 
         $this->layout = new Layout($this);
     }

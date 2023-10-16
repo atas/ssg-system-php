@@ -10,8 +10,6 @@ use League\CommonMark\Extension\ExternalLink\ExternalLinkExtension;
 use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
 use League\CommonMark\Extension\TableOfContents\TableOfContentsExtension;
 
-require_once('Types.php');
-
 class Markdown {
 
     private string $hostname;
@@ -27,7 +25,6 @@ class Markdown {
      */
     private function get_md_config(): array
     {
-        global $config;
         return [
             'allow_unsafe_links' => false,
             'external_link' => [

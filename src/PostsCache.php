@@ -2,8 +2,6 @@
 
 namespace Atas\SsgSystemPhp;
 
-require_once 'Markdown.php';
-
 /**
  * This function reads the posts directory to generate posts.json file
  * This way we are not compiling every .md file to read its meta data (front matter)
@@ -51,7 +49,6 @@ class PostsCache {
     private function shouldUpdateCache(string $postFile): bool {
         if (is_file($this->postsDir . $postFile)) {
             $lastModified = filemtime($this->postsDir . $postFile);
-            echo "lastModified: $lastModified for file $postFile\n";
             foreach ($this->cachedPosts as $cachedPost) {
                 if ($cachedPost->filename === $postFile && $cachedPost->lastModified >= $lastModified) {
                     return false;
