@@ -8,6 +8,7 @@ class Post
     public string $desc;
     public string $slug;
     public string $filename;
+    public ?string $date = null;
 
     // When was the file modified last
     public int $lastModified;
