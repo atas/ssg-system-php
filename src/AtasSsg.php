@@ -17,7 +17,7 @@ class AtasSsg
 
     public Layout $layout;
 
-    public function __construct($projRoot)
+    public function __construct($projRoot, ?array $markdownConfig = null)
     {
         if (file_exists($projRoot . "/config.json")) {
             $this->config = json_decode(file_get_contents($projRoot . "/config.json"));
@@ -29,7 +29,7 @@ class AtasSsg
         $this->pageMeta->desc = $this->config->site_desc;
         $this->pageMeta->og_image = $this->config->default_opengraph_image;
 
-        $this->markdown = new Markdown($this->getCurrentHostname());
+        $this->markdown = new Markdown($this->getCurrentHostname(), $markdownConfig);
 
         $this->postCache = new PostsCache($this->projRoot . "/tmp/posts.json", $this->projRoot . "/posts/",
             $this->markdown);

@@ -13,10 +13,12 @@ use League\CommonMark\Extension\TableOfContents\TableOfContentsExtension;
 class Markdown {
 
     private string $hostname;
+    private ?array $customConfig;
 
-    public function __construct(string $hostname)
+    public function __construct(string $hostname, ?array $markdownConfig = null)
     {
         $this->hostname = $hostname;
+        $this->customConfig = $markdownConfig;
     }
 
     /**
@@ -25,7 +27,7 @@ class Markdown {
      */
     private function get_md_config(): array
     {
-        return [
+        $defaults = [
             'allow_unsafe_links' => false,
             'external_link' => [
                 'internal_hosts' => [$this->hostname],
@@ -52,6 +54,12 @@ class Markdown {
                 'title' => 'Permalink',
             ]
         ];
+
+        if ($this->customConfig !== null) {
+            return array_replace_recursive($defaults, $this->customConfig);
+        }
+
+        return $defaults;
     }
 
     /**
