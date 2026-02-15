@@ -9,6 +9,7 @@ class Post
     public string $slug;
     public string $filename;
     public ?string $date = null;
+    public bool $ignore = false;
 
     // When was the file modified last
     public int $lastModified;

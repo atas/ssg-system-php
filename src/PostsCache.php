@@ -72,6 +72,7 @@ class PostsCache {
         $postObj->desc = $tpl->meta->desc;
         $postObj->slug = $tpl->meta->slug;
         $postObj->date = $tpl->meta->date ?? null;
+        $postObj->ignore = !empty($tpl->meta->ignore);
         $postObj->filename = $postFile;
         $postObj->lastModified = filemtime($this->postsDir . $postFile);
 
